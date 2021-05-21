@@ -1,0 +1,64 @@
+#tabuleiro{
+	width: 384px;
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.espaco{
+	height: 128px;
+	width: 128px;
+	box-sizing: border-box;
+	border: 3px solid black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.espaco.marcador-X::after{
+	display: block;
+	content: 'X';
+	font-size: 128px;
+}
+
+.espaco.marcador-O::after{
+	display: block;
+	content: 'O';
+	font-size: 128px;
+}
+
+#esquerda-acima{
+	border-left:0;
+	border-top:0;
+}
+
+#centro-acima{
+	border-top:0;
+}
+
+#direita-acima{
+	border-top:0;
+	border-right:0;
+}
+
+
+#esquerda{
+	border-left:0;
+}
+
+#direita{
+	border-right:0;
+}
+
+#esquerda-abaixo{
+	border-left:0;
+	border-bottom:0;
+}
+
+#centro-abaixo{
+	border-bottom:0;
+}
+
+#direita-abaixo{
+	border-bottom:0;
+	border-right:0;
+}
