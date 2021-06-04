@@ -16,9 +16,25 @@ const JOGADOR2 = 'O';
 
 let jogador = JOGADOR1;	// O jogador do turno
 
+// Funcao que contem a logica do jogo
+function jogar(event){			
+	
+	// Cria uma copia do objeto tabuleiro que terá a propriedade modificada
+	tabuleiro = Object.assign({}, tabuleiro, {
+		[event.target.id]: jogador						// redefine a propriedade do objeto no novo tabuleiro
+	});
+
+	event.target.classList.add('marcador-' + jogador);	// Preenchendo a posicao no tabuleiro com "X" ou "O"
+}
+
+Object.keys(tabuleiro).forEach(posicao => {
+	const espaco = document.getElementById(posicao);			// Obtendo elemento por ID
+	espaco.addEventListener('click', jogar);							// Adicionando Event Listener de click
+});
 
 
-function mudaTurno(atual){
+
+/*function mudaTurno(atual){
 	if(atual === JOGADOR1)
 		return JOGADOR2;
 	else
@@ -31,20 +47,20 @@ function marcarTabuleiro(espaco){
 		[espaco.id]: jogador										// A jogada é efetuada na copia feita
 	});
 	espaco.classList.add('marcador-'+jogador);					// Adiciona o marcador (X ou O) no tabuleiro
-}
+}*/
 
 
-function checarVitoria(){
+/**
+ * FUNCAO	: checarVitoria
+ * OBJETIVO	: checa o tabuleiro para verificar se o jogador atual venceu ou nao
+ * RETORNO	: retorna se o jogador atual ganhou
+ */
+/*function checarVitoria(){
 
+	// verifica as linhas horizontais do tabuleiro
 	['-acima','','-baixo'].forEach(sufixo => {
-		if(tabuleiro['esquerda${sufixo}'] === jogador &&
-			tabuleiro['centro${sufixo}'] === jogador &&
-			tabuleiro['direita${sufixo}'] === jogador){
-				return true;
-		}
-	});
 
-	['-acima','','-baixo'].forEach(sufixo => {
+		// Se a linha do tabuleiro tiver todos os valores iguais é retornado TRUE
 		if(tabuleiro['esquerda${sufixo}'] === jogador &&
 			tabuleiro['centro${sufixo}'] === jogador &&
 			tabuleiro['direita${sufixo}'] === jogador){
@@ -75,7 +91,7 @@ function jogar(event){
 Object.keys(tabuleiro).forEach(posicao => {			//
 	const espaco = document.getElementById(posicao);
 	espaco.addEventListener('click', jogar);
-});
+});*/
 
 
 
