@@ -1,4 +1,4 @@
-let tabuleiro = {			// variavel para armazenar o tabuleiro
+let tabuleiro = {									// variavel para armazenar o tabuleiro
 	'esquerda-acima': null,
 	'centro-acima': null,
 	'direita-acima': null,
@@ -14,8 +14,10 @@ let tabuleiro = {			// variavel para armazenar o tabuleiro
 const JOGADOR1 = 'X';
 const JOGADOR2 = 'O';
 
-let jogador = JOGADOR1;	// O jogador do turno
+let jogador = JOGADOR1;								// O jogador do turno
 let flagVencedor = false;
+let deuEmpate = false;								// Flag que indoca empate
+let cont = 9;
 
 
 
@@ -24,7 +26,10 @@ function marcarTabuleiro(espaco){
 	tabuleiro = Object.assign({}, tabuleiro, {
 		[event.target.id]: jogador					// redefine a propriedade do objeto no novo tabuleiro
 	});
+	console.log(tabuleiro);
 	espaco.classList.add('marcador-' + jogador);	// Preenchendo a posicao no tabuleiro com "X" ou "O"
+	cont--;
+	console.log(cont);
 }
 
 
@@ -34,6 +39,7 @@ function mudaTurno(){
 		jogador = JOGADOR2;
 	else
 		jogador = JOGADOR1;
+	
 }
 
 
@@ -95,11 +101,23 @@ function checarVitoria(){
 }
 
 
+// Funcao que verifica se houve empate
+/*function checarPorEmpate(){
+	teste = Object.keys(tabuleiro).every(posicao => {					// Retorna as propriedades do objeto tabuleiro
+		console.log(tabuleiro[posicao] !== null);
+	})
+	console.log(teste);
+}*/
+
+
 
 // Funcao que contem a logica do jogo
 function jogar(event){
 	const espaco = event.target;
 
+	//if(flagVencedor||deuEmpate) return;
+	if(flagVencedor) return;
+	
 	// Checar se o espaço nao esta preenchido
 	if(tabuleiro[espaco.id] !== null){
 		return;
@@ -110,17 +128,27 @@ function jogar(event){
 	if(!flagVencedor) marcarTabuleiro(espaco);
 	
 
-	if(checarVitoria()){
-		vencedor = jogador;
+	if(checarVitoria()){							// Checa se houve vitoria
+		vencedor = jogador;							// Sinaliza o jogador vencedor
 		const mensagem = document.getElementById('mensagem');
 		
-		mensagem.textContent = "Vitoria ao jogador " + jogador;
+		mensagem.textContent = "Vitoria ao jogador " + jogador;			// Exibe mensagem do vencedor
 		
-		flagVencedor.forEach(posicao =>{
+		flagVencedor.forEach(posicao =>{			// Realça a jogada
 			const espaco = document.getElementById(posicao);
 			espaco.style.backgroundColor = '#008800';
 			espaco.style.color = '#ffffff';
 		});	
+	}
+	else if(!cont){						// Checa se houve empate
+		deuEmpate = true;							// Sinaliza a condicao de empate
+		const mensagem = document.getElementById('mensagem');
+		tabuleiro.forEach(posicao =>{			// Realça a jogada
+			const espaco = document.getElementById(posicao);
+			espaco.style.backgroundColor = '#880000';
+			espaco.style.color = '#ffffff';
+		});
+		mensagem.textContent = 'Deu empate. Deu velha!!!';				// Exibe a mensagem de empate
 	}
 	
 	
